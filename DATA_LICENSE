@@ -1,0 +1,12 @@
+LEWS 1.0 Benchmark Data License
+
+The data files in tasks/ and results/ (the "Dataset") are (c) 2026 Decover AI
+and are licensed under Creative Commons Attribution-NonCommercial 4.0
+International (CC BY-NC 4.0): https://creativecommons.org/licenses/by-nc/4.0/
+
+In short: you may use, share, and adapt the Dataset for research and
+evaluation with attribution (cite the paper), but not for commercial purposes.
+For commercial licensing, contact Decover AI (https://decover.ai).
+
+The Dataset is a frozen historical snapshot for benchmarking. It is not legal
+advice, and outcome labels describe JPML petition dispositions only.
