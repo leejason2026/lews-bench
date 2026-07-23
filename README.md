@@ -1,8 +1,8 @@
-# LEWS 1.0 — Litigation Early Warning Benchmark
+# LEWS 1.0: Litigation Early Warning Benchmark
 
 **Can you forecast which drugs and medical devices will become the next mass torts?**
 
-LEWS 1.0 is a temporally strict benchmark for forecasting whether a petition to the U.S. Judicial Panel on Multidistrict Litigation (JPML) will be **granted** (creating an MDL) or **denied**. It contains **167 real petitions** (78 granted, 89 denied) spanning 1970–2026. Each task is an evidence dossier reconstructed **strictly as of the petition date** — regulatory signals, scientific literature, court dockets, plus leading indicators such as plaintiff-firm intake advertising and litigation-funding activity. No information dated on or after the petition date appears in any dossier.
+LEWS 1.0 is a temporally strict benchmark for forecasting whether a petition to the U.S. Judicial Panel on Multidistrict Litigation (JPML) will be **granted** (creating an MDL) or **denied**. It contains **167 real petitions** (78 granted, 89 denied) spanning 1970–2026. Each task is an evidence dossier reconstructed **strictly as of the petition date**: regulatory signals, scientific literature, court dockets, plus leading indicators such as plaintiff-firm intake advertising and litigation-funding activity. No information dated on or after the petition date appears in any dossier.
 
 It accompanies the paper *Signals Beat Scale: Evidence Acquisition Dominates Model Choice in Forecasting Mass-Tort Consolidation* (Lee & Tandon, Decover AI; arXiv link forthcoming) and is maintained by [Decover AI](https://decover.ai), which operates the surrounding production system (LEWS).
 
@@ -56,7 +56,7 @@ python3 evaluation/evaluate.py my_predictions.json \
 | `label` | 1 = petition granted (MDL created), 0 = denied |
 | `outcome` | `grant` / `deny` (readable form of `label`) |
 
-**Prediction file format**: `{"model": "name", "predictions": {"lews-0000": 0.87, ...}}`. Use `null` for a case your model did not answer — the evaluator reports it as coverage and excludes it. **Do not impute 0.5 for a non-answer** (see paper §8 for why).
+**Prediction file format**: `{"model": "name", "predictions": {"lews-0000": 0.87, ...}}`. Use `null` for a case your model did not answer; the evaluator reports it as coverage and excludes it. **Do not impute 0.5 for a non-answer** (see the paper's Limitations section for why).
 
 ## Evaluation protocols
 
@@ -74,7 +74,7 @@ Metrics: AUROC with 10,000-sample bootstrap 95% CI, DeLong and paired-bootstrap 
 ## Licenses
 
 - **Code** (`evaluation/`, `harness/`): MIT (see `LICENSE`).
-- **Data** (`tasks/`, `results/`): [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — research and evaluation use; commercial use of the dataset requires permission from Decover AI (see `DATA_LICENSE`).
+- **Data** (`tasks/`, `results/`): [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): research and evaluation use; commercial use of the dataset requires permission from Decover AI (see `DATA_LICENSE`).
 
 This benchmark is decision-support research material, **not legal advice**; predictions concern JPML petition outcomes, not the merits of any claim.
 
