@@ -68,7 +68,10 @@ def main():
     ap.add_argument("pred_files", nargs="+")
     ap.add_argument("--compare", help="reference prediction file for paired tests")
     ap.add_argument("--temporal", action="store_true",
-                    help="score only the temporal holdout (latest 25%% of petitions by cutoff)")
+                    help="score only the temporal holdout (latest 25%% of cases by cutoff)")
+    ap.add_argument("--petitions-only", action="store_true",
+                    help="score only the 97 real petitions (grant vs deny); excludes "
+                         "constructed negatives. Much harder; expect wide CIs (19 negatives).")
     args = ap.parse_args()
 
     tasks = load_tasks()
@@ -76,6 +79,10 @@ def main():
     y = np.array([t["label"] for t in tasks], dtype=float)
 
     keep = np.ones(len(tasks), dtype=bool)
+    if args.petitions_only:
+        keep = np.array([t["outcome"] in ("grant", "deny") for t in tasks])
+        print(f"petitions only: n={int(keep.sum())} "
+              f"({int(y[keep].sum())} granted / {int((1-y[keep]).sum())} denied)\n")
     if args.temporal:
         order = np.argsort([t["cutoff"] for t in tasks], kind="stable")
         n_test = int(len(tasks) * 0.25)   # canonical split: matches the paper exactly

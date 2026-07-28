@@ -2,7 +2,16 @@
 
 **Can you forecast which drugs and medical devices will become the next mass torts?**
 
-LEWS 1.0 is a temporally strict benchmark for forecasting whether a petition to the U.S. Judicial Panel on Multidistrict Litigation (JPML) will be **granted** (creating an MDL) or **denied**. It contains **167 real petitions** (78 granted, 89 denied) spanning 1970–2026. Each task is an evidence dossier reconstructed **strictly as of the petition date**: regulatory signals, scientific literature, court dockets, plus leading indicators such as plaintiff-firm intake advertising and litigation-funding activity. No information dated on or after the petition date appears in any dossier.
+LEWS 1.0 is a temporally strict benchmark for forecasting whether a substance (drug, medical device, or exposure) will be **consolidated into a federal MDL within roughly 18 months** of an evidence-cutoff date. It contains **167 cases** anchored to real petitions before the U.S. Judicial Panel on Multidistrict Litigation (JPML):
+
+| Row type (`outcome`) | n | Label | What it is |
+|---|---|---|---|
+| `grant` | 78 | 1 | granted petitions, evidence frozen at the petition date |
+| `deny` | 19 | 0 | denied petitions, evidence frozen at the petition date |
+| `timing_neg` | 51 | 0 | the granted substances re-cut 36 months before their petitions (the same substance appears with both labels, so substance memorization fails) |
+| `never_mdl` | 19 | 0 | widely used drugs and chemicals with no MDL history |
+
+Cutoffs span 2015 to 2026. Each case carries an evidence dossier reconstructed **strictly as of its cutoff date**: regulatory signals, scientific literature, court dockets, plus leading indicators such as plaintiff-firm intake advertising and litigation-funding activity. No information dated on or after the cutoff appears in any dossier. Across the 167 dossiers, 572,792 corpus signals are summarized (median 42 per dossier; the never-MDL rows are the most signal-rich, so counting signals does not solve the task).
 
 It accompanies the paper *Signals Beat Scale: Evidence Acquisition Dominates Model Choice in Forecasting Mass-Tort Consolidation* (Lee & Tandon, Decover AI; arXiv link forthcoming) and is maintained by [Decover AI](https://decover.ai), which operates the surrounding production system (LEWS).
 
@@ -54,14 +63,15 @@ python3 evaluation/evaluate.py my_predictions.json \
 | `dossier` | the as-of-date evidence dossier (mean ~910 tokens) |
 | `features` | 21 engineered signal counts (inputs to the classical baselines) |
 | `label` | 1 = petition granted (MDL created), 0 = denied |
-| `outcome` | `grant` / `deny` (readable form of `label`) |
+| `outcome` | row type: `grant` / `deny` / `timing_neg` / `never_mdl` (see composition table above) |
 
 **Prediction file format**: `{"model": "name", "predictions": {"lews-0000": 0.87, ...}}`. Use `null` for a case your model did not answer; the evaluator reports it as coverage and excludes it. **Do not impute 0.5 for a non-answer** (see the paper's Limitations section for why).
 
 ## Evaluation protocols
 
 1. **Full (cross-validation)**: if you train on LEWS 1.0 dossiers, every prediction must come from a model whose training folds excluded that petition. Zero-shot / API models can simply predict all 167.
-2. **Temporal** (`--temporal`): train only on the earliest 75% of petitions, predict the latest 25% (n=41). This is the stricter, headline protocol.
+2. **Temporal** (`--temporal`): train only on the earliest 75% of cases, predict the latest 25% (n=41). This is the stricter, headline protocol. Note its composition: the 27 test negatives are 19 `never_mdl`, 5 `deny`, and 3 `timing_neg` rows, so absolute numbers partly reflect the easier constructed negatives (model-vs-model comparisons are unaffected).
+3. **Petitions only** (`--petitions-only`): score only the 97 real petitions (grant vs. deny). This is much harder; in the paper every model drops sharply (frontier model 0.661, best classical learner at chance) and confidence intervals are wide (19 negatives).
 
 Metrics: AUROC with 10,000-sample bootstrap 95% CI, DeLong and paired-bootstrap tests against a reference model, Brier score, 10-bin ECE, and generation coverage.
 
