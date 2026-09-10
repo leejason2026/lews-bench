@@ -98,3 +98,25 @@ This benchmark is decision-support research material, **not legal advice**; pred
   note   = {arXiv preprint, forthcoming}
 }
 ```
+
+## v1.1 label audit (September 2026)
+
+Every negative was audited against JPML records through 2026-09-01. Two rows are
+excluded in v1.1 (details and right-censoring flags in `audit/v1_1.json`):
+
+- `lews-0022` Sorin 3T Heater-Cooler: denied, then granted as MDL 2816 twelve months
+  after the cutoff, inside the horizon (the granted No. II petition is already a row).
+- `lews-0152` omeprazole: under the active ~11,400-case PPI MDL 2789 at its cutoff.
+
+Excluding both (n=165) raises every trained model by about +0.005 AUROC. The
+reference predictions reproduce both versions; papers should state which they use.
+
+## Probe artifacts (September 2026)
+
+`results/probes_2026-09/` carries the reference outputs behind the paper's ablation
+and contamination analysis: substance-grouped cross-validation, per-source ablation
+retrains (FAERS/MAUDE, intake advertising, dockets, all legal-market signals),
+labels-only training (no teacher rationales), name-only contamination probes
+(frontier 0.893 vs untrained local base 0.500), the 0.5B-3B scale sweep, model-family
+transfers (Llama-3.1-8B, Gemma-2-9b, Mistral-7B), and lead-time re-cuts of the
+granted petitions at 6 and 12 months before filing.

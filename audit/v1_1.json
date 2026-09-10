@@ -1,0 +1,35 @@
+{
+ "version": "1.1",
+ "date": "2026-09-10",
+ "method": "Every negative audited against JPML records (pending and terminated MDL reports, hearing orders) through 2026-09-01.",
+ "exclusions": [
+  {
+   "id": "lews-0022",
+   "subject": "Sorin 3T Heater-Cooler System",
+   "was": {
+    "outcome": "deny",
+    "label": 0
+   },
+   "reason": "Denied on the first petition (cutoff 2017-01-26) but granted as MDL 2816 on 2018-02-01, about twelve months after the cutoff and inside the 18-month horizon; the benchmark separately carries the granted No. II petition (lews-0032), so relabeling would double-count one MDL. Excluded in v1.1."
+  },
+  {
+   "id": "lews-0152",
+   "subject": "omeprazole",
+   "was": {
+    "outcome": "never_mdl",
+    "label": 0
+   },
+   "reason": "At its 2024-06-01 cutoff the substance sat under the active ~11,400-case proton-pump-inhibitor MDL 2789 (D.N.J., created 2017) and New Jersey MCL 631; not a negative under any reading. Excluded in v1.1."
+  }
+ ],
+ "criterion_note": "The never-consolidated criterion reads: no active MDL at cutoff and no consolidation within the horizon. Five v1 negatives (atorvastatin, sertraline, gabapentin, albuterol, bisphenol) have pre-2015 MDL histories; their horizon labels are correct and they remain included.",
+ "right_censored_ids": [
+  "lews-0139",
+  "lews-0141",
+  "lews-0143",
+  "lews-0144",
+  "lews-0146"
+ ],
+ "right_censored_note": "Cutoffs from 2025-03 onward cannot yet have complete 18-month outcome windows; labels reflect JPML outcomes observed through 2026-09-01.",
+ "effect": "Excluding both rows (n=165) raises every trained model by about +0.005 AUROC and deepens the below-chance petitions-only logistic result. Reference predictions reproduce both versions."
+}
