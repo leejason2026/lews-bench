@@ -13,7 +13,7 @@ LEWS 1.0 is a temporally strict benchmark for forecasting whether a substance (d
 
 Cutoffs span 2015 to 2026. Each case carries an evidence dossier reconstructed **strictly as of its cutoff date**: regulatory signals, scientific literature, court dockets, plus leading indicators such as plaintiff-firm intake advertising and litigation-funding activity. No information dated on or after the cutoff appears in any dossier. Across the 167 dossiers, 572,792 corpus signals are summarized (median 42 per dossier; the never-MDL rows are the most signal-rich, so counting signals does not solve the task).
 
-It accompanies the paper *Signals Beat Scale: Evidence Acquisition Dominates Model Choice in Forecasting Mass-Tort Consolidation* (Lee & Tandon, Decover AI; arXiv link forthcoming) and is maintained by [Decover AI](https://decover.ai), which operates the surrounding production system (LEWS).
+It accompanies the paper *Predicting the Mass Tort Market* (Jason Lee, Kamran Akmal and Ravi Tandon, Decover AI), to appear in *Legal Knowledge and Information Systems: JURIX 2026* (Frontiers in Artificial Intelligence and Applications, IOS Press), and is maintained by [Decover AI](https://decover.ai), which operates the surrounding production system (LEWS).
 
 ## Leaderboard (paper v1)
 
@@ -91,11 +91,14 @@ This benchmark is decision-support research material, **not legal advice**; pred
 ## Citation
 
 ```bibtex
-@article{lee2026signals,
-  title  = {Signals Beat Scale: Evidence Acquisition Dominates Model Choice in Forecasting Mass-Tort Consolidation},
-  author = {Lee, Jason and Tandon, Ravi},
-  year   = {2026},
-  note   = {arXiv preprint, forthcoming}
+@inproceedings{lee2026masstort,
+  title     = {Predicting the Mass Tort Market},
+  author    = {Lee, Jason and Akmal, Kamran and Tandon, Ravi},
+  booktitle = {Legal Knowledge and Information Systems: JURIX 2026},
+  series    = {Frontiers in Artificial Intelligence and Applications},
+  publisher = {IOS Press},
+  year      = {2026},
+  note      = {to appear}
 }
 ```
 
